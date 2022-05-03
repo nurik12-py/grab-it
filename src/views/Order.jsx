@@ -8,21 +8,23 @@ const Order = () => {
   const [items, setItems] = useState([]);
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect(async () => {
-    const res = await getOrder(id);
-    const order = res.data;
-    console.log(order);
-    setItems(order.items);
-    setDetails({
-      fridgeName: order.fridge.name,
-      time: order.time,
-      locationName: order.fridge.location.name,
-    });
-    setLoading(false);
+  useEffect(() => {
+    getOrder(id)
+      .then((res) => {
+        const order = res.data;
+        setItems(order.items);
+        setDetails({
+          fridgeName: order.fridge.name,
+          time: order.time,
+          locationName: order.fridge.location.name,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
   return (
     <div>
-      {/* <Navbar title={"Покупка №" + id} /> */}
       {loading ? (
         <div className="mt-20">
           <Spinner />
@@ -72,7 +74,6 @@ const Order = () => {
           </ul>
         </div>
       )}
-      {/* <Navigation /> */}
     </div>
   );
 };
