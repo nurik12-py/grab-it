@@ -12,13 +12,13 @@ import Profile from "./views/Profile";
 import ScanMe from "./views/ScanMe/ScanMe";
 import Registration from "./views/Registration";
 import Login from "./views/Login";
+import Home from "./views/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route
-        exact
         path="/"
         element={
           <ProtectedRoute>
@@ -26,6 +26,7 @@ ReactDOM.render(
           </ProtectedRoute>
         }
       >
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/orders/:id" element={<Order />} />
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/profile" element={<Profile />} />
