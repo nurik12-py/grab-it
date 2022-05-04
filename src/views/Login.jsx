@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-
 import { login, setJwt } from "../services/authService";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,11 +16,9 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     const errors = validate(loginData);
     setErrors(errors);
     if (Object.keys(errors).length != 0) return;
-
     setLoading(true);
     try {
       const res = await login(loginData.email, loginData.password);
