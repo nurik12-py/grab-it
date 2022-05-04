@@ -13,7 +13,7 @@ const ScanMe = () => {
   const [newSocket, setSocket] = useState(null);
   const [closed, setClosed] = useState(true);
   const [locked, setLocked] = useState(true);
-  const [status, setStatus] = useState(3);
+  const [status, setStatus] = useState(0);
   const { id } = useParams();
 
   useEffect(() => {
