@@ -15,6 +15,7 @@ import Login from "./views/Login";
 import Home from "./views/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./views/NotFound";
+import ForgetPassword from "./views/ForgetPassword";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -33,6 +34,7 @@ ReactDOM.render(
         <Route exact path="/profile" element={<Profile />} />
       </Route>
       <Route exact path="/scanme/:id" element={<ScanMe />} />
+      <Route exact path="/forget-password" element={<ForgetPassword />} />
       <Route exact path="/registration" element={<Registration />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="*" element={<NotFound />} />
