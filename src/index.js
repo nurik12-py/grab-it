@@ -15,6 +15,7 @@ import Login from "./views/Login";
 import Home from "./views/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgetPassword from "./views/ForgetPassword";
+import PasswordRecovery from "./views/PasswordRecovery";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -36,6 +37,7 @@ ReactDOM.render(
       <Route exact path="/registration" element={<Registration />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/forget-password" element={<ForgetPassword/>}/>
+      <Route exact path="/password-recovery" element={<PasswordRecovery/>} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
