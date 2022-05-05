@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EmailSent from "../components/EmailSent";
-import EnterEmail from "../components/EnterEmail";
+import EmailSent from "./EmailSent";
+import EnterEmail from "./EnterEmail";
 const ForgetPassword = () => {
   const [isSent, setIsSent] = useState(false);
   const [email, setEmail] = useState();
