@@ -34,10 +34,11 @@ ReactDOM.render(
         <Route exact path="/profile" element={<Profile />} />
       </Route>
       <Route exact path="/scanme/:id" element={<ScanMe />} />
+      <Route exact path="/forget-password" element={<ForgetPassword />} />
       <Route exact path="/registration" element={<Registration />} />
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/forget-password" element={<ForgetPassword/>}/>
       <Route exact path="/password-recovery" element={<PasswordRecovery/>} />
+      <Route exact path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")

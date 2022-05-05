@@ -11,7 +11,11 @@ const ForgetPassword = () => {
   };
   return (
     <div className="w-full flex h-screen justify-center items-center ">
-      {isSent ? <EmailSent email={email}/> : <EnterEmail onSubmit={onSubmit} email={email} />}
+      {isSent ? (
+        <EmailSent email={email} />
+      ) : (
+        <EnterEmail onSubmit={onSubmit} email={email} />
+      )}
     </div>
   );
 };
