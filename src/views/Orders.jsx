@@ -20,7 +20,7 @@ const Orders = () => {
     <div className="p-2 pt-16 mt-3">
       {loading && <Spinner />}
       <div className="flex flex-col">
-        {orders.length == 0 && !loading && (
+        {orders.length === 0 && !loading && (
           <p className="text-center">Пока нет покупок!</p>
         )}
         {orders.map((order) => (

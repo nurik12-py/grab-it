@@ -7,7 +7,7 @@ axios.interceptors.response.use(null, (error) => {
     error.response &&
     error.response.status >= 400 &&
     error.response.status < 500;
-  if (error.response.status == 401) {
+  if (error.response.status === 401) {
     localStorage.removeItem("token");
     window.location = "/login";
   }
@@ -33,7 +33,7 @@ function setJwt(jwt) {
   }
 })();
 
-export default {
+const httpModule = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
@@ -41,3 +41,5 @@ export default {
   patch: axios.patch,
   setJwt,
 };
+
+export default httpModule;

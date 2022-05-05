@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/solid";
+import { LockOpenIcon } from "@heroicons/react/solid";
 
 const LockTimer = ({ totalMillis = 5000, onComplate }) => {
   const [progress, setPorgress] = useState(100);
@@ -16,7 +16,7 @@ const LockTimer = ({ totalMillis = 5000, onComplate }) => {
     }, 1);
 
     return () => clearInterval(interval);
-  }, [progress, millis]);
+  });
 
   return (
     <div className="h-full flex flex-col items-center justify-center">

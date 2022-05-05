@@ -8,6 +8,7 @@ const Order = () => {
   const [items, setItems] = useState([]);
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     getOrder(id)
       .then((res) => {
@@ -22,7 +23,8 @@ const Order = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [id]);
+
   return (
     <div>
       {loading ? (

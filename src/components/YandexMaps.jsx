@@ -2,8 +2,8 @@ import { React, useEffect, useState } from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 const YandexMaps = ({ fridges = [] }) => {
-  let [currentLatitude, setcurrentLatitude] = useState(43.23364);
-  let [currentLongitude, setcurrentLongitude] = useState(76.779491);
+  let [currentLatitude] = useState(43.23364);
+  let [currentLongitude] = useState(76.779491);
 
   useEffect(() => {
     // navigator.geolocation.getCurrentPosition((position) => {
