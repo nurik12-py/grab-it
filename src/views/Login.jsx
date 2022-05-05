@@ -82,8 +82,11 @@ const Login = () => {
                 type="password"
                 error={errors.password}
               />
+              <Link to="/forget-password">
+                <p className="text-blue-600 text-right">Забыли пароль?</p>
+              </Link>
             </div>
-            <div className=" mt-5 login w-full flex justify-center mb-8">
+            <div className="mt-5  w-full flex justify-center mb-8">
               <button
                 className=" flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mb-4"
                 type="submit"

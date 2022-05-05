@@ -38,7 +38,7 @@ ReactDOM.render(
       <Route exact path="/forget-password" element={<ForgetPassword />} />
       <Route exact path="/registration" element={<Registration />} />
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/password-recovery" element={<PasswordRecovery />} />
+      <Route exact path="/reset-password" element={<PasswordRecovery />} />
       <Route exact path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>,
