@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     const errors = validate(loginData);
     setErrors(errors);
-    if (Object.keys(errors).length != 0) return;
+    if (Object.keys(errors).length !== 0) return;
     setLoading(true);
     try {
       const res = await login(loginData.email, loginData.password);

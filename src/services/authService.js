@@ -20,9 +20,11 @@ export function setJwt() {
   http.setJwt(getJwt());
 }
 
-export default {
+const authModule = {
   login,
   logout,
   getJwt,
   setJwt,
 };
+
+export default authModule;

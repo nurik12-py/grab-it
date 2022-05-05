@@ -12,7 +12,7 @@ import FirdgeError from "./FridgeError";
 const ScanMe = () => {
   const [newSocket, setSocket] = useState(null);
   const [closed, setClosed] = useState(true);
-  const [locked, setLocked] = useState(true);
+  // const [locked, setLocked] = useState(true);
   const [status, setStatus] = useState(0);
   const { id } = useParams();
 
@@ -36,7 +36,7 @@ const ScanMe = () => {
     });
 
     newSocket.on("locked", ({ state }) => {
-      setLocked(state);
+      // setLocked(state);
       // if (state) setStatus(2);
     });
 
@@ -72,15 +72,15 @@ const ScanMe = () => {
         <p className="text-center absolute top-20 left-1/2 -translate-x-1/2">
           Холодильник: #{id}
         </p>
-        {status == 0 ? (
+        {status === 0 ? (
           <Welcome onTap={openDoor} />
-        ) : status == 1 ? (
+        ) : status === 1 ? (
           <LockTimer onComplate={timerComplate} />
-        ) : status == 2 ? (
+        ) : status === 2 ? (
           <PurchaseStart />
-        ) : status == 3 ? (
+        ) : status === 3 ? (
           <PurchaseComplated />
-        ) : status == 4 ? (
+        ) : status === 4 ? (
           <FirdgeBusy />
         ) : (
           <FirdgeError />

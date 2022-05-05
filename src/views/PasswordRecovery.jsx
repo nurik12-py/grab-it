@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Input from "../components/Input";
 import { setJwt } from "../services/authService";
 import { resetPassword } from "../services/passwordService";
 
 const PasswordRecovery = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [errorMessage, setErrorMessage] = useState();
 
   const handleSubmit = async (e) => {
