@@ -14,7 +14,6 @@ import Registration from "./views/Registration";
 import Login from "./views/Login";
 import Home from "./views/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
-import NotFound from "./views/NotFound";
 import ForgetPassword from "./views/ForgetPassword";
 
 ReactDOM.render(
