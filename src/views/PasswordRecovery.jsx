@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Input from "../components/Input";
 import { setJwt } from "../services/authService";
 import { resetPassword } from "../services/passwordService";
+
 const PasswordRecovery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,12 +14,24 @@ const PasswordRecovery = () => {
     const token = searchParams.get("token");
     const password1 = e.target[0].value;
     const password2 = e.target[1].value;
-    if (password1 === password2) {
-      const authToken = await resetPassword(email, password1, token);
+    setErrorMessage("");
+
+    if (password1.length < 8) {
+      setErrorMessage("Пароль должен быть более 8 символов");
+      return;
+    } else if (password1 !== password2) {
+      setErrorMessage("Пароли не совподают");
+      return;
+    }
+    try {
+      console.log(token, email, password1);
+      const { data } = await resetPassword(email, password1, token);
+      const authToken = data.token;
       localStorage.setItem("token", authToken);
       setJwt();
-    } else {
-      alert("Пароли не совподают!");
+      window.location = "/";
+    } catch (err) {
+      setErrorMessage("Что-то пошло не так!");
     }
   };
 
@@ -31,7 +45,12 @@ const PasswordRecovery = () => {
         className="w-4/5 flex flex-col items-center"
       >
         <div className="w-full">
-          <Input name="password1" type="password" label="Новый пароль" />
+          <Input
+            name="password1"
+            error={errorMessage}
+            type="password"
+            label="Новый пароль"
+          />
           <Input name="password2" type="password" label="Повторите пароль" />
         </div>
         <button
