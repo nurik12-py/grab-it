@@ -2,20 +2,24 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOrders } from "../services/ordersService";
 import Spinner from "../components/Spiner";
+import { Item, Order } from "../models/order";
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     getOrders()
       .then((res) => {
         const { data: orders } = res;
         setOrders(orders);
+        console.log(orders);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
+
   return (
     <div className="p-2 pt-16 mt-3">
       {loading && <Spinner />}
@@ -26,7 +30,6 @@ const Orders = () => {
         {orders.map((order) => (
           <Link
             to={`/orders/${order.id}`}
-            href="#"
             className="border rounded-md px-4 py-3"
             key={order.id}
           >

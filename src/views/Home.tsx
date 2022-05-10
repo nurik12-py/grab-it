@@ -1,4 +1,3 @@
-import React from "react";
 import YandexMaps from "../components/YandexMaps";
 
 import { useEffect, useState } from "react";

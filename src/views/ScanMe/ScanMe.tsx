@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { useParams } from "react-router-dom";
 import PurchaseComplated from "./PurchaseComplated";
 import FirdgeBusy from "./FridgeBusy";
@@ -10,7 +10,7 @@ import Welcome from "./Welcome";
 import FirdgeError from "./FridgeError";
 
 const ScanMe = () => {
-  const [newSocket, setSocket] = useState(null);
+  const [newSocket, setSocket] = useState<Socket | undefined>(undefined);
   const [closed, setClosed] = useState(true);
   // const [locked, setLocked] = useState(true);
   const [status, setStatus] = useState(0);
@@ -20,7 +20,7 @@ const ScanMe = () => {
     const newSocket = io(process.env.REACT_APP_SOCKET_URL);
     const token = localStorage.getItem("token");
 
-    newSocket.on("connect", (socket) => {
+    newSocket.on("connect", () => {
       newSocket.emit("join", { clientId: token });
     });
 
@@ -56,7 +56,7 @@ const ScanMe = () => {
     console.log("Open send");
     const token = localStorage.getItem("token");
     console.log(newSocket);
-    newSocket.emit("direct", { receiver: id, sender: token, signal: "open" });
+    newSocket?.emit("direct", { receiver: id, sender: token, signal: "open" });
     setStatus(1);
   };
 

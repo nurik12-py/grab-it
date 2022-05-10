@@ -1,25 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { setJwt } from "../services/authService";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../services/userService";
 import Input from "../components/Input";
+
+interface RegistrationData {
+  name: string;
+  phone_number: string;
+  email: string;
+  password: string;
+}
+
+interface RegistrationError {
+  name?: string;
+  phone_number?: string;
+  email?: string;
+  password?: string;
+}
+
 const Registration = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<RegistrationData>({
     name: "",
     phone_number: "",
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<RegistrationError>({});
 
-  const handleInput = (e) => {
+  const navigate = useNavigate();
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const copy = { ...data };
-    copy[e.target.name] = e.target.value;
+    copy[e.target.name as keyof RegistrationData] = e.target.value;
     setData(copy);
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrors(validate(data));
     const errors = validate(data);
@@ -34,17 +50,16 @@ const Registration = () => {
 
         const response = await register(body);
         const token = response.data.token;
-        localStorage.setItem("token", token);
-        setJwt();
-        window.location = "/";
+        sessionStorage.setItem("token", token);
+        navigate("/");
       } catch (ex) {
         setErrors({ name: "Пользователь уже зарегистрирован" });
       }
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: RegistrationError) => {
+    const errors = {} as RegistrationError;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
       errors.name = "Имя не может быть пустым";

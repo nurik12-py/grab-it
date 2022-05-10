@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUser } from "../services/userService";
 import { logout } from "../services/authService";
 import Input from "../components/Input";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [userData, setUserData] = useState({
@@ -9,6 +10,8 @@ const Profile = () => {
     phone_number: "",
     email: "",
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUser().then((res) => {
@@ -18,7 +21,7 @@ const Profile = () => {
 
   const handleClick = () => {
     logout();
-    window.location = "/login";
+    navigate("/login");
   };
 
   return (

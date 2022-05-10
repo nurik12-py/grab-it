@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { FormEvent, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Input from "../components/Input";
-import { setJwt } from "../services/authService";
 import { resetPassword } from "../services/passwordService";
 
 const PasswordRecovery = () => {
-  const [searchParams] = useSearchParams();
-  const [errorMessage, setErrorMessage] = useState();
+  const [searchParams] = useSearchParams("");
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const email = searchParams.get("email");
     const token = searchParams.get("token");
-    const password1 = e.target[0].value;
-    const password2 = e.target[1].value;
+
+    const target = e.target as typeof e.target & {
+      password1: { value: string };
+      password2: { value: string };
+    };
+
+    const password1 = target.password1.value;
+    const password2 = target.password2.value;
     setErrorMessage("");
 
     if (password1.length < 8) {
@@ -25,11 +31,10 @@ const PasswordRecovery = () => {
     }
     try {
       console.log(token, email, password1);
-      const { data } = await resetPassword(email, password1, token);
+      const { data } = await resetPassword(email!, password1, token!);
       const authToken = data.token;
-      localStorage.setItem("token", authToken);
-      setJwt();
-      window.location = "/";
+      sessionStorage.setItem("token", authToken);
+      navigate("/");
     } catch (err) {
       setErrorMessage("Что-то пошло не так!");
     }

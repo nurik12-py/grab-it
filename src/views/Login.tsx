@@ -1,20 +1,38 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import { login, setJwt } from "../services/authService";
+import { login } from "../services/authService";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AxiosError } from "axios";
+
+interface ErrorBody {
+  email?: string | undefined;
+  password?: string | undefined;
+}
+
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+interface LoginErrors {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({
+  const [loginData, setLoginData] = useState<LoginData>({
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<ErrorBody | undefined>();
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (e) => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const errors = validate(loginData);
     setErrors(errors);
@@ -24,23 +42,24 @@ const Login = () => {
       const res = await login(loginData.email, loginData.password);
       const data = res.data;
       const token = data.token;
-      localStorage.setItem("token", token);
-      setJwt();
-      window.location = "/";
-    } catch (ex) {
-      setErrors({ email: ex.response.data.message });
+      sessionStorage.setItem("token", token);
+      navigate("/");
+    } catch (error) {
+      const err = error as AxiosError;
+      setErrors({ email: err.response?.data.message, password: "" });
     }
     setLoading(false);
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const copy = { ...loginData };
-    copy[e.target.name] = e.target.value;
+    copy[e.target.name as keyof LoginData] = e.target.value;
     setLoginData(copy);
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: LoginErrors) => {
+    const errors: ErrorBody = {};
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.email) {
       errors.email = "Введите почту";
@@ -70,7 +89,7 @@ const Login = () => {
               type="email"
               value={loginData.email}
               label="Почта"
-              error={errors.email}
+              error={errors?.email}
             />
 
             <div className="mt-3">
@@ -80,7 +99,7 @@ const Login = () => {
                 value={loginData.password}
                 label="Пароль"
                 type="password"
-                error={errors.password}
+                error={errors?.password}
               />
               <Link to="/forget-password">
                 <p className="text-blue-600 text-right">Забыли пароль?</p>

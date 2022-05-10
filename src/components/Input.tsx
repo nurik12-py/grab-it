@@ -1,11 +1,24 @@
-import React from "react";
-const Input = ({
+import { ChangeEvent, FC } from "react";
+
+interface InputProps {
+  label: string;
+  name: string;
+  value?: string;
+  onChange?: ((e: ChangeEvent<HTMLInputElement>) => void) | undefined;
+  placeholder?: string;
+  type?: string;
+  error?: string;
+  disabled?: boolean;
+}
+
+const Input: FC<InputProps> = ({
   label,
   name,
   value,
   onChange,
   placeholder = "",
   type = "text",
+  disabled = false,
   error,
   ...rest
 }) => {
@@ -28,6 +41,7 @@ const Input = ({
         onChange={onChange}
         value={value}
         type={type}
+        disabled={disabled}
         {...rest}
       />
       <p className="text-red-600 text-[14px] mb-2 ">{error}</p>

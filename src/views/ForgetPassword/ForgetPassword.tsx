@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { sendRecoveryLink } from "../../services/passwordService";
 import EmailSent from "./EmailSent";
 import EnterEmail from "./EnterEmail";
+
 const ForgetPassword = () => {
   const [isSent, setIsSent] = useState(false);
   const [validEmail, setValidEmail] = useState(true);
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setValidEmail(true);
-    const email = e.target[0].value;
+
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+    };
+
+    const email = target.email.value;
     try {
       await sendRecoveryLink(email);
       setEmail(email);

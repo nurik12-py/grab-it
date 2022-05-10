@@ -1,9 +1,10 @@
-import React from "react";
+import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
-const Navigation = () => {
+
+const Navigation: FC = () => {
   return (
     <div className="w-full fixed bottom-0 bg-white border-t-2 border-slate-100 p-3">
       <div className="row grid grid-cols-3 font-bold">

@@ -1,7 +1,12 @@
-import { React, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { Fridge } from "../models/fridge";
 
-const YandexMaps = ({ fridges = [] }) => {
+interface YandexMapsProps {
+  fridges: Fridge[];
+}
+
+const YandexMaps: FC<YandexMapsProps> = ({ fridges = [] }) => {
   let [currentLatitude] = useState(43.23364);
   let [currentLongitude] = useState(76.779491);
 

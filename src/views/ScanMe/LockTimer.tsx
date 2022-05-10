@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { LockOpenIcon } from "@heroicons/react/solid";
 
-const LockTimer = ({ totalMillis = 5000, onComplate }) => {
+interface LockTimerProps {
+  totalMillis?: number;
+  onComplate: () => void;
+}
+
+const LockTimer: FC<LockTimerProps> = ({ totalMillis = 5000, onComplate }) => {
   const [progress, setPorgress] = useState(100);
   const [millis, setMillis] = useState(totalMillis);
 

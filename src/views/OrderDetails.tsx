@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spiner";
+import { Item, Order } from "../models/order";
 import { getOrder } from "../services/ordersService";
 
-const Order = () => {
+const OrderDetails = () => {
   const { id } = useParams();
-  const [items, setItems] = useState([]);
-  const [details, setDetails] = useState(null);
+  const [items, setItems] = useState<Item[]>([]);
+  const [order, setOrder] = useState<Order | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getOrder(id)
+    getOrder(id!)
       .then((res) => {
         const order = res.data;
         setItems(order.items);
-        setDetails({
-          fridgeName: order.fridge.name,
-          time: order.time,
-          locationName: order.fridge.location.name,
-        });
+        setOrder(order);
       })
       .finally(() => {
         setLoading(false);
@@ -37,20 +34,19 @@ const Order = () => {
             <h1 className="text-center p-3 font-medium">Детали покупки</h1>
             <li className="flex items-center justify-between">
               <span>Название: </span>
-              <span>{details.fridgeName}</span>
+              <span>{order?.fridge?.name}</span>
             </li>
             <li className="flex items-center justify-between">
               <span>Адрес: </span>
-              <span>{details.locationName}</span>
+              <span>{order?.locationName}</span>
             </li>
             <li className="flex items-center justify-between">
               <span>Дата покупки: </span>
-              <span>{details.time}</span>
+              <span>{order?.time}</span>
             </li>
             <h1 className="text-center font-medium mt-6">Купленные продукты</h1>
             {items.map((item) => (
               <div
-                href="#"
                 className="flex items-center gap-3 py-3"
                 aria-current="true"
                 key={item.id}
@@ -80,4 +76,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OrderDetails;

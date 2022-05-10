@@ -1,6 +1,10 @@
-import React from "react";
+import { FC } from "react";
 
-const EmailSent = ({ email }) => {
+interface EmailProps {
+  email: string;
+}
+
+const EmailSent: FC<EmailProps> = ({ email }) => {
   return (
     <form className="w-4/5 flex flex-col items-center">
       <p className="text-center">

@@ -1,7 +1,7 @@
-import React from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
-const NotFound = () => {
+const NotFound: FC = () => {
   return (
     <div className="flex h-screen w-full">
       <div className="m-auto flex flex-col items-center">
