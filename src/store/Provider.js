@@ -1,6 +1,0 @@
-const ReduxContext = React.createContext("redux");
-export const Provider = ({ store, children }) => (
-      <ReduxContext.Provider value={store}>
-        {children}
-      </ReduxContext.Provider> 
-);

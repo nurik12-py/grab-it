@@ -1,15 +1,13 @@
-import {getFridges} from "../services/fridgeService"
-import { getUser } from "../services/userService";
-const updateFridge = () => ({type: 'updateFridge'});
-const updateUserData = () => ({type: 'updateUserData'});
+import { combineReducers } from "./core/CombineReducers";
+import { createStore } from "./core/CreateStore";
+import fridgeReducer from "./reducers/fridgeReducer";
+import userReducer from "./reducers/userReducer";
 
-const reducer = (state, action) => {
-    if(action.type ===  'updateFridge'){
-        return state ;       
-    };
-    if(action.type === 'updateUserData'){
-        return state;
-    }
-}
-export default reducer;
-export {updateFridge, updateUserData};
+const rootReducer = combineReducers({
+  fridgres: fridgeReducer,
+  user: userReducer,
+});
+
+const store = createStore(rootReducer, { fridges: [], user: null });
+
+export default store;
