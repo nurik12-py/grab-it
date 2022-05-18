@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Navigation from "./components/Navigation";
-
 function App() {
   const [title, setTitle] = useState("Grab it 🍏");
   const location = useLocation();
@@ -33,6 +32,7 @@ function App() {
       <Outlet />
       <Navigation />
     </div>
+
   );
 }
 
